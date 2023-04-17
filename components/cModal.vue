@@ -7,18 +7,30 @@
       </div>
       <div v-if="showCreateOrUpdate" class="form ma-5 mb-10">
         <div class="input-text mb-5" :class="nameEmpty && 'input-error'">
-          <input id="name" v-model="name" type="text" placeholder="Informe" />
-          <span v-if="nameEmpty">Campo obrigatório</span>
+          <label for="name">Nome <span class="required">*</span></label>
+          <input
+            id="name"
+            v-model="name"
+            type="text"
+            placeholder="Informe"
+            data-testid="input-name"
+          />
+          <span v-if="nameEmpty" data-testid="input-error-user"
+            >Campo obrigatório</span
+          >
         </div>
         <div class="input-text" :class="jobEmpty && 'input-error'">
-          <label for="jog">Vaga <span class="required">*</span></label>
+          <label for="job">Vaga <span class="required">*</span></label>
           <input
             id="job"
             v-model="job"
             type="text"
             placeholder="Informe vaga"
+            data-testid="input-job"
           />
-          <span v-if="jobEmpty">Campo obrigatório</span>
+          <span v-if="jobEmpty" data-testid="input-error-user"
+            >Campo obrigatório</span
+          >
         </div>
       </div>
       <div v-else class="delete-warning">
@@ -32,6 +44,7 @@
         <button
           :disabled="loading"
           :class="typeEvent === 'delete' ? 'primary mx-2' : 'btn-outlined'"
+          data-testid="btn-cancel"
           @click="closeModal"
         >
           <span class="text-white">{{
@@ -41,6 +54,7 @@
         <button
           v-if="typeEvent === 'create'"
           :disabled="loading"
+          data-testid="btn-create-confirm"
           @click="createUser()"
         >
           <span v-if="loading" class="lds-dual-ring"></span>
@@ -49,6 +63,7 @@
         <button
           v-if="typeEvent === 'update'"
           :disabled="loading"
+          data-testid="btn-update-confirm"
           @click="updateUser()"
         >
           <span v-if="loading" class="lds-dual-ring"></span>
@@ -58,6 +73,7 @@
           v-if="typeEvent === 'delete'"
           :disabled="loading"
           class="btn-outlined mx-2"
+          data-testid="btn-delete-confirm"
           @click="deleteUser()"
         >
           <span v-if="loading" class="lds-dual-ring spinner-primary"></span>

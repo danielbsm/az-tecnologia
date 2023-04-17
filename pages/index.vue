@@ -68,7 +68,9 @@
           </div>
         </div>
         <div class="title">
-          <a href="#" @click="createUser()"><svg-plus /> Adicionar</a>
+          <a href="#" data-testid="btn-create-user" @click="createUser()"
+            ><svg-plus /> Adicionar</a
+          >
         </div>
         <user-list />
       </div>
@@ -92,7 +94,7 @@
 <script>
 export default {
   name: 'IndexPage',
-  // middleware: ['isLogged'],
+  middleware: ['isLogged'],
   data() {
     return {
       typeEvent: '',

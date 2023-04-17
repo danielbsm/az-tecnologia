@@ -23,10 +23,12 @@
               <span class="text-truncate">{{ user.email }}</span>
             </td>
             <td class="actions">
-              <div @click="editUser(user)">
+              <div data-testid="btn-update-user" @click="editUser(user)">
                 <svg-edit />
               </div>
-              <div @click="deleteUser(user)"><svg-trash /></div>
+              <div data-testid="btn-delete-user" @click="deleteUser(user)">
+                <svg-trash />
+              </div>
             </td>
           </tr>
         </tbody>
@@ -53,16 +55,19 @@
         <span class="mb-1">{{ user.first_name }} {{ user.last_name }}</span>
         <span class="mb-5">{{ user.email }}</span>
         <div class="actions">
-          <div @click="editUser(user)">
+          <div data-testid="btn-update-user-mobile" @click="editUser(user)">
             <svg-edit />
           </div>
-          <div @click="deleteUser(user)"><svg-trash /></div>
+          <div data-testid="btn-delete-user-mobile" @click="deleteUser(user)">
+            <svg-trash />
+          </div>
         </div>
       </div>
       <button
         v-if="pagination.page < pagination.totalPages"
         class="btn-show-more my-5"
         :disabled="loading"
+        data-testid="btn-show-more"
         @click="getUsers()"
       >
         <span v-if="loading" class="lds-dual-ring"></span>
@@ -229,6 +234,7 @@ export default {
         font-weight: 400;
         font-size: 12px;
         color: var(--grey-suva);
+        cursor: pointer;
       }
       li.active {
         background-color: var(--primary);
