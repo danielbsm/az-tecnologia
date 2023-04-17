@@ -95,7 +95,6 @@ export default {
       user: {},
       typeEvent: '',
       toast: {},
-      userData: [],
       pagination: {
         perPage: 6,
         page: 0,
@@ -106,6 +105,9 @@ export default {
   computed: {
     showUserList() {
       return this.userData?.length > 0
+    },
+    userData() {
+      return JSON.parse(JSON.stringify(this.$store.getters['users/getUsers']))
     },
   },
   created() {
@@ -124,17 +126,20 @@ export default {
     },
     async getUsers(element) {
       this.loading = true
-      element ? (this.pagination.page = element) : (this.pagination.page = +1)
+      element ? (this.pagination.page = element) : (this.pagination.page += 1)
 
       const page = element || this.pagination.page
+
+      const getUsers = JSON.parse(
+        JSON.stringify(this.$store.getters['users/getUsers'])
+      )
 
       const url = `users?page=${page}&per_page=${this.pagination.perPage}`
       await this.$azTecnologiaAPI
         .get(url)
         .then(({ data }) => {
-          element
-            ? (this.userData = data.data)
-            : this.userData.push(...data.data)
+          const users = element ? data.data : [...getUsers, ...data.data]
+          this.$store.commit('users/SET_USERS', users)
           this.pagination.totalPages = data.total_pages
         })
         .catch((error) => {

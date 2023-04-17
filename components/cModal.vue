@@ -133,11 +133,18 @@ export default {
       }
       await this.$azTecnologiaAPI
         .post('users', payload)
-        .then(() => {
+        .then(({ data }) => {
           this.$emit('update:toast', {
             show: true,
             type: 'success',
             text: 'Cadastro realizado com sucesso!',
+          })
+          this.$store.commit('users/SET_USER', {
+            id: data.id,
+            avatar: 'https://avatars.githubusercontent.com/u/37278149?s=96&v=4',
+            email: '_daniel_@hotmail.com.br',
+            first_name: this.fullName,
+            last_name: 'Martins',
           })
           this.$emit('update:showModal', false)
         })
@@ -156,9 +163,11 @@ export default {
     async updateUser() {
       if (!this.validate()) return
 
+      const getName = this.fullName ? this.fullName : this.name
+
       this.loading = true
       const payload = {
-        name: this.fullName ? this.fullName : this.name,
+        name: getName,
         job: this.job,
       }
       await this.$azTecnologiaAPI
@@ -168,6 +177,10 @@ export default {
             show: true,
             type: 'success',
             text: 'Cadastro alterado com sucesso!',
+          })
+          this.$store.dispatch('users/updateUser', {
+            userId: this.user.id,
+            firstName: getName,
           })
           this.$emit('update:showModal', false)
         })
@@ -193,6 +206,7 @@ export default {
             type: 'success',
             text: 'Exclusão realizado com sucesso!',
           })
+          this.$store.dispatch('users/removeUser', this.user.id)
           this.$emit('update:showModal', false)
         })
         .catch((error) => {
@@ -213,7 +227,6 @@ export default {
     validate() {
       this.nameEmpty = false
       this.jobEmpty = false
-      console.log('aqui', this.fullName.length, this.name.length)
       if (!this.fullName && !this.name) {
         this.nameEmpty = true
         return false
