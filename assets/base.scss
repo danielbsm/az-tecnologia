@@ -1,0 +1,141 @@
+:root {
+  --primary: #0067a5;
+  --secondary: #626262;
+  --grey: #d9d9d9;
+  --grey-suva: #949494;
+  --success: #53a653;
+  --error: #ff0000;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  color: var(--secondary);
+}
+
+#app {
+  display: flex;
+  background-color: #e5e5e5;
+  width: 100vw;
+}
+.container {
+  display: flex;
+  width: 100vw;
+}
+
+input[type='text'],
+input[type='password'] {
+  max-width: 360px;
+  width: 100%;
+  height: 40px;
+  font-size: 17px;
+  font-weight: 500;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  outline: none;
+  padding-left: 10px;
+  padding-top: 15px;
+  color: var(--secondary);
+  &:invalid {
+    border-bottom: 1px solid var(--error);
+  }
+}
+
+label {
+  font-size: 13px;
+  color: #626262;
+  font-weight: 600;
+}
+
+button {
+  background-color: #0067a5;
+  color: #fff;
+  width: 87px;
+  height: 38px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.6 !important;
+  }
+}
+
+.avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background-color: #d9d9d9;
+}
+
+.required {
+  font-size: 15px;
+  font-weight: 900;
+  color: var(--error);
+}
+
+.btn-outlined {
+  border: 1px solid var(--grey);
+  background-color: transparent;
+  span {
+    color: var(--grey-suva);
+  }
+}
+
+.text-truncate {
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.input-text {
+  width: 100%;
+}
+
+.input-error {
+  input[type='text'],
+  input[type='password'] {
+    border-bottom: 1px solid var(--error) !important;
+  }
+  span {
+    color: var(--error);
+    margin-top: -50px !important;
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+// Spinner
+.lds-dual-ring {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.lds-dual-ring:after {
+  content: ' ';
+  display: block;
+  width: 15px;
+  height: 15px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
